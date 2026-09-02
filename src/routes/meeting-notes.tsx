@@ -78,7 +78,7 @@ function NotesPage() {
               Speaker labels help attribution. Nothing is inferred about individuals.
             </CardDescription>
           </CardHeader>
-          <CardContent asChild>
+          <CardContent>
             <form
               className="space-y-4"
               onSubmit={(e) => {

@@ -110,10 +110,10 @@ function compose(moduleId: ModulePromptId, p: RunPayload): string {
 }
 
 function composeEmail(p: RunPayload): string {
-  const points = bullets(p.points, "[key points not supplied]");
-  const tone = p.tone || "Professional";
-  const recipient = p.recipient?.trim() || "[recipient]";
-  const purpose = p.purpose?.trim() || "[purpose not stated]";
+  const points = bullets(p["points"], "[key points not supplied]");
+  const tone = p["tone"] || "Professional";
+  const recipient = p["recipient"]?.trim() || "[recipient]";
+  const purpose = p["purpose"]?.trim() || "[purpose not stated]";
   const subject = purpose.length > 60 ? `${purpose.slice(0, 57)}…` : purpose;
 
   return `${DEMO_BANNER}
@@ -136,17 +136,17 @@ ${
 
 Best regards,
 [Your name]
-${p.signature?.trim() ? p.signature.trim() : "[role] · [team]"}
+${p["signature"]?.trim() ? p["signature"].trim() : "[role] · [team]"}
 
 Assumptions & open questions
-• Tone applied: ${tone}. Length target: ${p.length || "Medium"}. Language: ${p.language || "English"}.
-• [assumption] Recipient relationship treated as "${p.relationship || "colleague"}".
+• Tone applied: ${tone}. Length target: ${p["length"] || "Medium"}. Language: ${p["language"] || "English"}.
+• [assumption] Recipient relationship treated as "${p["relationship"] || "colleague"}".
 • Placeholders left for you to fill: [date], and any figures or links not in your brief.
 • No facts were added beyond your key points. Verify names, dates and commitments before sending.`;
 }
 
 function composeNotes(p: RunPayload): string {
-  const lines = bullets(p.notes, "[no notes supplied]");
+  const lines = bullets(p["notes"], "[no notes supplied]");
   const decisions = lines.filter((l) => /decision|agreed|we (will|ship)|approved/i.test(l));
   const actions = lines.filter((l) => /will |needs to|owner|action|by (mon|tue|wed|thu|fri|\d)/i.test(l));
   const risks = lines.filter((l) => /blocker|risk|slip|up \d|delay|timeout|unclear/i.test(l));
@@ -175,13 +175,13 @@ ${risks.length ? risks.map((l) => `• ${l}`).join("\n") : "• None raised."}
 
 Unclear or missing
 ${unclear.length ? unclear.map((l) => `• ${l}`).join("\n") : "• Nothing flagged as ambiguous."}
-• Meeting type: ${p.meetingType || "[not specified]"}. Depth: ${p.depth || "Standard"}.
+• Meeting type: ${p["meetingType"] || "[not specified]"}. Depth: ${p["depth"] || "Standard"}.
 • Owners and dates are only ever copied from your notes — never inferred. Confirm them with attendees.`;
 }
 
 function composePlan(p: RunPayload): string {
-  const goal = p.goal?.trim() || "[goal not stated]";
-  const constraints = bullets(p.constraints, "None supplied");
+  const goal = p["goal"]?.trim() || "[goal not stated]";
+  const constraints = bullets(p["constraints"], "None supplied");
   const steps = [
     "Clarify scope and success criteria",
     "Audit the current state and collect the inputs you need",
@@ -194,10 +194,10 @@ function composePlan(p: RunPayload): string {
   return `${DEMO_BANNER}
 
 Plan summary
-• Approach: break "${goal}" into six sequenced milestones sized to ${p.capacity || "[capacity not stated]"} per day.
+• Approach: break "${goal}" into six sequenced milestones sized to ${p["capacity"] || "[capacity not stated]"} per day.
 • Critical path: scope → audit → build → validate. Slippage in the audit moves everything after it.
 
-Milestones (target labels derived only from your deadline: ${p.deadline || "[no deadline supplied]"})
+Milestones (target labels derived only from your deadline: ${p["deadline"] || "[no deadline supplied]"})
 ${steps.map((s, i) => `${i + 1}. ${s}`).join("\n")}
 
 Tasks — estimates are indicative and require human validation
@@ -213,12 +213,12 @@ ${steps
 Risks & assumptions
 ${constraints.map((c) => `• Constraint carried through: ${c}`).join("\n")}
 • [assumption] No approvals, budget or tooling beyond what you listed.
-• If ${p.deadline || "the deadline"} cannot absorb the estimates above, cut the roll-out learnings step first.`;
+• If ${p["deadline"] || "the deadline"} cannot absorb the estimates above, cut the roll-out learnings step first.`;
 }
 
 function composeResearch(p: RunPayload): string {
-  const question = p.question?.trim() || "[question not stated]";
-  const hasSources = Boolean(p.sources?.trim());
+  const question = p["question"]?.trim() || "[question not stated]";
+  const hasSources = Boolean(p["sources"]?.trim());
 
   return `${DEMO_BANNER}
 
@@ -228,7 +228,7 @@ ${question}
 What the supplied sources support
 ${
   hasSources
-    ? bullets(p.sources)
+    ? bullets(p["sources"])
         .map((s) => `• Source registered: ${s} — no claim can be extracted without a live model reading it.`)
         .join("\n")
     : "No sources supplied — nothing can be verified."
@@ -240,7 +240,7 @@ General background (unverified)
 
 Evidence gaps
 • Primary documents, data or interviews covering: ${question}
-• Scope boundaries: ${p.scope?.trim() || "[scope not stated]"}. Depth requested: ${p.depth || "Standard"}.
+• Scope boundaries: ${p["scope"]?.trim() || "[scope not stated]"}. Depth requested: ${p["depth"] || "Standard"}.
 
 Suggested next steps
 • Collect the specific documents that would answer the question and attach them as sources.
@@ -249,7 +249,7 @@ Suggested next steps
 }
 
 function composeChat(p: RunPayload): string {
-  const message = p.message?.trim() || "";
+  const message = p["message"]?.trim() || "";
   const routed = /email|write to|reply/i.test(message)
     ? "Smart Email Generator"
     : /meeting|transcript|notes/i.test(message)

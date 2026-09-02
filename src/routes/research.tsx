@@ -90,7 +90,7 @@ function ResearchPage() {
               Paste source excerpts or references. Without them, nothing can be verified.
             </CardDescription>
           </CardHeader>
-          <CardContent asChild>
+          <CardContent>
             <form
               className="space-y-4"
               onSubmit={(e) => {

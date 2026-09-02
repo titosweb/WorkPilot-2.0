@@ -44,7 +44,7 @@ export function OutputPanel({
           <EmptyState title={emptyTitle} description={emptyDescription} />
         ) : null}
 
-        {run.state === "loading" ? <LoadingState label={loadingLabel} /> : null}
+        {run.state === "loading" ? <LoadingState label={loadingLabel ?? "Generating draft…"} /> : null}
 
         {run.state === "error" && run.error ? (
           <ErrorState message={run.error} onRetry={run.regenerate} />

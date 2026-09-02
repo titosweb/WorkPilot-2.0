@@ -76,7 +76,7 @@ function EmailPage() {
               Anything you leave out becomes a bracketed placeholder — never a guess.
             </CardDescription>
           </CardHeader>
-          <CardContent asChild>
+          <CardContent>
             <form
               className="space-y-4"
               onSubmit={(e) => {

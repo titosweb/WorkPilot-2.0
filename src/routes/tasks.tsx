@@ -74,7 +74,7 @@ function TasksPage() {
               No people, budgets or tools are invented — only what you list is used.
             </CardDescription>
           </CardHeader>
-          <CardContent asChild>
+          <CardContent>
             <form
               className="space-y-4"
               onSubmit={(e) => {

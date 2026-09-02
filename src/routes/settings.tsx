@@ -151,7 +151,7 @@ function SettingsPage() {
 
               <div className="space-y-3 sm:max-w-sm">
                 <Label htmlFor="temperature">
-                  Creativity ({(temperature[0] / 100).toFixed(2)})
+                  Creativity ({((temperature[0] ?? 30) / 100).toFixed(2)})
                 </Label>
                 <Slider
                   id="temperature"
