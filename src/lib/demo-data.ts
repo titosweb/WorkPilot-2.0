@@ -189,9 +189,10 @@ export const demoChatSeed = [
     id: "c0",
     role: "assistant" as const,
     content:
-      "Hi Frans — I'm WorkPilot AI. Ask me anything about your work, or I can hand you off to a specialist module: **Email**, **Meeting Notes**, **Task Planner** or **Research**.\n\nRight now no live model is connected, so my replies are clearly-labelled demo responses.",
+      "Hi Frans — I'm WorkPilot AI. Ask me anything about your work, or I can hand you off to a specialist module: **Email**, **Meeting Notes**, **Task Planner** or **Research**.\n\nMy replies are generated live by an AI model, so please review anything before you act on it.",
   },
 ];
+
 
 export const demoAuditLog = [
   {
