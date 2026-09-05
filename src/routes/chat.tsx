@@ -11,7 +11,7 @@ import { PromptInspector } from "@/components/prompt-inspector";
 import { AiGeneratedBadge, ResponsibleAiNotice } from "@/components/ai-notice";
 import { ErrorState } from "@/components/state-blocks";
 import { demoChatSeed } from "@/lib/demo-data";
-import { demoGenerate, RunError } from "@/lib/ai-runtime";
+import { generate, RunError } from "@/lib/ai-runtime";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/chat")({
@@ -70,8 +70,8 @@ function ChatPage() {
     setError(null);
     setPending(true);
     try {
-      // Full history would be sent here on a live integration — the model is stateless.
-      const result = await demoGenerate("chat", { message: trimmed });
+      const history = messages.slice(-10).map((m) => ({ role: m.role, content: m.content }));
+      const result = await generate("chat", { message: trimmed }, { history });
       setMessages((prev) => [
         ...prev,
         { id: `a-${Date.now()}`, role: "assistant", content: result.text },
@@ -103,7 +103,7 @@ function ChatPage() {
         icon={Bot}
         badges={
           <Badge variant="outline" className="border-ai/40 bg-ai-surface text-ai-foreground">
-            Demo replies · no live model connected
+            Live AI · human review required
           </Badge>
         }
       />
@@ -192,7 +192,7 @@ function ChatPage() {
                   <span className="size-1.5 animate-bounce rounded-full bg-muted-foreground [animation-delay:120ms]" />
                   <span className="size-1.5 animate-bounce rounded-full bg-muted-foreground [animation-delay:240ms]" />
                 </span>
-                WorkPilot is composing a demo reply…
+                WorkPilot is thinking…
               </div>
             ) : null}
 
@@ -226,7 +226,7 @@ function ChatPage() {
               />
               <div className="flex items-center justify-between gap-3">
                 <p className="text-xs text-muted-foreground">
-                  Demo replies only. Never share credentials or personal data.
+                  Replies are AI generated. Never share credentials or personal data.
                 </p>
                 <Button type="submit" disabled={pending || !input.trim()}>
                   <Send aria-hidden="true" className="size-4" />
