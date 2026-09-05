@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import { MODULE_PROMPTS, type ModulePromptId } from "./prompts";
 
-const MODEL = "google/gemini-2.5-flash";
+const MODEL = "google/gemini-3.7-flash";
 const GATEWAY_URL = "https://ai.gateway.lovable.dev/v1/chat/completions";
 
 const schema = z.object({
