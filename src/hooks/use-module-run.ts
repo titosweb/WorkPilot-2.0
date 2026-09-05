@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from "react";
 import { toast } from "sonner";
 import {
-  demoGenerate,
+  generate,
   RunError,
   type RunPayload,
   type RunResult,
@@ -12,8 +12,9 @@ import type { ModulePromptId } from "@/lib/prompts";
 /**
  * Owns the lifecycle of one AI module surface: idle → loading → success | error,
  * plus the editable copy of the output and the copy / regenerate / clear actions.
- * Swapping the mock runtime for a real provider only changes `demoGenerate`.
+ * Output comes from a live model call scoped by the module's system prompt.
  */
+
 export function useModuleRun(moduleId: ModulePromptId) {
   const [state, setState] = useState<RunState>("idle");
   const [result, setResult] = useState<RunResult | null>(null);
@@ -32,7 +33,7 @@ export function useModuleRun(moduleId: ModulePromptId) {
       setState("loading");
       setError(null);
       try {
-        const next = await demoGenerate(moduleId, payload, ac.signal);
+        const next = await generate(moduleId, payload, { signal: ac.signal });
         setResult(next);
         setDraft(next.text);
         setEdited(false);
