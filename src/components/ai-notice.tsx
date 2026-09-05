@@ -55,10 +55,10 @@ export function ResponsibleAiNotice({
       <p>
         {children ?? (
           <>
-            No live AI model is connected in this build. Output shown is{" "}
-            <strong className="font-semibold">clearly-labelled demo content</strong> assembled from
-            your own input. When a model is connected, every draft still requires human review — the
+            Output on this page is generated live by an AI model from the input you provide. Every
+            draft still requires <strong className="font-semibold">human review</strong> — the
             assistant never sends, files or schedules anything on your behalf.
+
           </>
         )}
       </p>

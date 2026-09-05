@@ -32,10 +32,11 @@ export function OutputPanel({
         </div>
         {run.state === "success" && run.result ? (
           <p className="text-xs text-muted-foreground">
-            Demo runtime · prompt {run.result.promptVersion} ·{" "}
+            Live model {run.result.model} · prompt {run.result.promptVersion} ·{" "}
             {new Date(run.result.generatedAt).toLocaleTimeString()} · {run.result.latencyMs} ms
             {run.edited ? " · edited by you" : ""}
           </p>
+
         ) : null}
       </CardHeader>
 
@@ -53,9 +54,10 @@ export function OutputPanel({
         {run.state === "success" ? (
           <>
             <ResponsibleAiNotice variant="strict">
-              This is a <strong className="font-semibold">demo draft</strong>, not real AI output and
-              not a source of truth. Edit it freely below, verify every name, date and figure, and
-              take responsibility for anything you send.
+              This is an <strong className="font-semibold">AI-generated draft</strong>, not a source
+              of truth. Edit it freely below, verify every name, date and figure, and take
+              responsibility for anything you send.
+
             </ResponsibleAiNotice>
 
             <div className="space-y-2">

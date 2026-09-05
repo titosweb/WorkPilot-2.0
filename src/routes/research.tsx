@@ -75,8 +75,8 @@ function ResearchPage() {
         <p>
           <strong className="font-semibold">Never cite this tool.</strong> Citations must come from
           documents you can open yourself. This module will not produce a URL, author, title or
-          statistic that was not in your supplied material — and in this demo build no model reads
-          your sources at all.
+          statistic that was not in your supplied material. Verify every claim against
+          the sources you provided.
         </p>
       </div>
 
