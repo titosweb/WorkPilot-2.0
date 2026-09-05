@@ -84,9 +84,9 @@ function ResponsibleAiPage() {
       />
 
       <ResponsibleAiNotice variant="strict">
-        This build ships <strong className="font-semibold">no live AI model</strong>. All module
-        output is locally-composed demo content, labelled as such wherever it appears. The prompts
-        below define the contract a real provider will be held to at integration time.
+        Every module now runs against a <strong className="font-semibold">live AI model</strong>,
+        called server-side with the dedicated system prompt shown below. Output is always labelled as
+        AI generated and always requires human review before it is used or sent.
       </ResponsibleAiNotice>
 
       <section aria-label="Principles" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

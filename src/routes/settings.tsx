@@ -144,8 +144,8 @@ function SettingsPage() {
                   </SelectContent>
                 </Select>
                 <p className="text-xs text-muted-foreground">
-                  Connecting a provider is a backend change — until then every module runs the local
-                  demo runtime.
+                  Every module runs live through the connected AI service, called securely on the
+                  server so no key is ever exposed in your browser.
                 </p>
               </div>
 
